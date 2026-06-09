@@ -1,4 +1,4 @@
-import {loadAssets, bgFrames, bat, baseball} from "./lib/assets.js";
+import {loadAssets, bgFrames, bat, baseball, bgWin, bgLose} from "./lib/assets.js";
 import {ballActive, ballX, ballY, ballT, drawBall, hitWindow, targetX, targetY, pitch, startHomeRun, updateBall} from "./lib/ball.js";
 
 const canvas = document.querySelector("canvas");
@@ -14,6 +14,7 @@ let difficulty = 0;
 let pendingResult = null;
 let hasClicked = false;
 let gameOver = false;
+let gameResult = null;
 
 //TODO: perhaps squash or stretch the baseball based on power? ~asrael_io
 
@@ -66,14 +67,25 @@ function doPitch() {
 
 function endGame(win) {
     gameOver = true;
-    window.parent.postMessage({op: 'done', win})
-    strikes = 0;
-    pendingResult = null;
-    hasClicked = false;
+    gameResult = win;
+    setTimeout(() => {
+        window.parent.postMessage({op: 'done', win});
+        gameResult = null;
+        strikes = 0;
+        pendingResult = null;
+        hasClicked = false;
+        gameOver = false;
+    }, 2000);
 }
 
 function drawBackground() {
-    ctx.drawImage(bgFrames[strikes], 0, 0, canvas.width, canvas.height);
+    if (gameResult === true) {
+        ctx.drawImage(bgWin, 0, 0, canvas.width, canvas.height);
+    } else if (gameResult === false) {
+        ctx.drawImage(bgLose, 0, 0, canvas.width, canvas.height);
+    } else {
+        ctx.drawImage(bgFrames[strikes], 0, 0, canvas.width, canvas.height);
+    }
 }
 
 function drawGhostBall() {

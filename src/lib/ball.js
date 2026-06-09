@@ -32,7 +32,7 @@ export function pitch(canvas, difficulty) {
     ctrlY = (startY + targetY) / 2 + (Math.random() - 0.5) * 2 * curve;
 
     t = 0;
-    speed = 0.012 + (difficulty / 20) * 0.015;
+    speed = 0.015 + (difficulty / 20) * 0.015;
     ballActive = true;
     hitWindow = false;
     wasInHitWindow = false;

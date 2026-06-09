@@ -17,7 +17,6 @@ window.addEventListener('message', (e) => {
             console.log('game started, verb:', e.data.verb);
             break;
         case 'done':
-            console.log('game over, win:', e.data.win);
             if (e.data.win) {
                 difficulty === 1 ? difficulty = 5 : difficulty += 5;
             } else {

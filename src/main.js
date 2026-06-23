@@ -16,8 +16,6 @@ let hasClicked = false;
 let gameOver = false;
 let gameResult = null;
 
-//TODO: perhaps squash or stretch the baseball based on power? ~asrael_io
-
 canvas.addEventListener('mousemove', (e) => {
     const rect = canvas.getBoundingClientRect();
     mouseX = (e.clientX - rect.left) * (canvas.width / rect.width);

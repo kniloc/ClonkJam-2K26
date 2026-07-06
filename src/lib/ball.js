@@ -27,12 +27,22 @@ export function pitch(canvas, difficulty) {
     targetX = canvas.width * cell[0];
     targetY = canvas.height * cell[1];
 
-    const curve = canvas.width * (0.03 + 0.05 * (difficulty / 20));
+    // Asymptotic scaling: value = base + (max - base) * (difficulty / (steepness + difficulty))
+    const steepness = 55;
+    
+    const baseCurve = 0.03;
+    const maxCurve = 0.18;
+    const curveMultiplier = baseCurve + (maxCurve - baseCurve) * (difficulty / (steepness + difficulty));
+    const curve = canvas.width * curveMultiplier;
+    
     ctrlX = (startX + targetX) / 2 + (Math.random() - 0.5) * 2 * curve;
     ctrlY = (startY + targetY) / 2 + (Math.random() - 0.5) * 2 * curve;
 
     t = 0;
-    speed = 0.015 + (difficulty / 20) * 0.015;
+    
+    const baseSpeed = 0.015;
+    const maxSpeed = 0.06;
+    speed = baseSpeed + (maxSpeed - baseSpeed) * (difficulty / (steepness + difficulty));
     ballActive = true;
     hitWindow = false;
     wasInHitWindow = false;

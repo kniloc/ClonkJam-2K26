@@ -54,7 +54,7 @@ window.addEventListener('resize', () => {
 function startGame() {
     strikes = 0;
     gameOver = false;
-    doPitch();
+    setTimeout(doPitch, 2000);
 }
 
 function doPitch() {
